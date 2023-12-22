@@ -11,7 +11,10 @@
 		<!-- Theme style -->
 		<link rel="stylesheet" href="{{ asset('admin-assets/css/adminlte.min.css')}}">
 		<link rel="stylesheet" href="{{ asset('admin-assets/css/custom.css')}}">
+<<<<<<< HEAD
 		<meta name="csrf-token"content="{{ csrf_token()}}">
+=======
+>>>>>>> origin/main
 	</head>
 	<body class="hold-transition sidebar-mini">
 		<!-- Site wrapper -->
@@ -42,7 +45,11 @@
 						</a>
 						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-3">
 							<h4 class="h4 mb-0"><strong>{{ Auth::guard('admin')->user()->name }}</strong></h4>
+<<<<<<< HEAD
 							<div class="mb-3">{{ Auth::guard('admin')->user()->email}}</div>
+=======
+							<div class="mb-3">{{ Auth::guard('admin')->user()->email }}</div>
+>>>>>>> origin/main
 							<div class="dropdown-divider"></div>
 							<a href="#" class="dropdown-item">
 								<i class="fas fa-user-cog mr-2"></i> Settings								
@@ -82,6 +89,7 @@
 		<script src="{{ asset('admin-assets/js/adminlte.min.js')}}"></script>
 		<!-- AdminLTE for demo purposes -->
 		<script src="{{ asset('admin-assets/js/demo.js')}}"></script>
+<<<<<<< HEAD
 		<script type="text/javascript">
 		$.ajaxSetup({
 			headers: {
@@ -89,6 +97,8 @@
 			}
 		});
         </script>
+=======
+>>>>>>> origin/main
 
         @yield('customjs')
 	</body>
