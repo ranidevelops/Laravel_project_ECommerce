@@ -10,13 +10,19 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index(){
-        $categories =Category::latest()->paginate(10);
-        // $data['categories']=$categories;
-
-        return view('admin.category.list',compact('categories'));
-         
+    public function index(Request $request){
+        $categories = Category::latest();  
+    
+        if(!empty($request->get('keyword'))){
+            $categories = $categories->where('name', 'like', '%' . $request->get('keyword') . '%');
+        }
+    
+        // Instead, apply the orderBy and paginate on the existing $categories
+        $categories = $categories->orderBy('id', 'asc')->paginate(10);
+    
+        return view('admin.category.list', compact('categories'));
     }
+    
 
     public function create(){
         return view('admin.category.create');
