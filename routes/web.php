@@ -30,7 +30,6 @@ Route::group(['prefix'=>'admin'],function(){
         Route::post('/authenticate', [AdminLoginController::class, 'authenticate'])->name('admin.authenticate');
 
 
-
     });
     Route::group(['middleware'=>'admin.auth'],function(){
         Route::get('/dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
@@ -38,6 +37,12 @@ Route::group(['prefix'=>'admin'],function(){
 
         // category Routes
         Route::get('/categories',[CategoryController::class,'index'])->name('categories.index');
+        Route::get('/categories/{category}/edit',[CategoryController::class,'edit'])->name('categories.edit');
+        Route::put('/categories/{category}',[CategoryController::class,'update'])->name('categories.update');
+        Route::delete('/categories/{category}',[CategoryController::class,'destroy'])->name('categories.delete');
+
+
+
         //temp-images.create
         Route::post('/upload-temp-image',[TempImagesController ::class,'create'])->name('temp-images.create');
 
