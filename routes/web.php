@@ -5,6 +5,8 @@ use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\SubCategoryController;
+use App\Http\Controllers\admin\BrandsController;
+
 use App\Http\Controllers\admin\TempImagesController;
 use Illuminate\Http\Request;
 
@@ -56,7 +58,10 @@ Route::group(['prefix'=>'admin'],function(){
         //temp-images.create
         Route::post('/upload-temp-image',[TempImagesController ::class,'create'])->name('temp-images.create');
 
-    
+        // Brand Routes
+        Route::get('/brands/create',[BrandsController::class,'create'])->name('brand.create');
+
+
 
         
         Route::get('/getSlug',function(Request $request){
