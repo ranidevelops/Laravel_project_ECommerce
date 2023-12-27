@@ -18,59 +18,59 @@
 					<!-- Default box -->
 					<div class="container-fluid">
                        <form action="" name="subCategoryForm" id="subCategoryForm">
-						<div class="card">
-							<div class="card-body">								
-								<div class="row">
-                                    <div class="col-md-12">
-										<div class="mb-3">
-											<label for="name">Category</label>
-											<select name="category" id="category" class="form-control">
-                                                <option value=""> select a category</option>
-                                                @if($categories->isNotEmpty())
-                                                @foreach ($categories as $category )
-                                                <option value="{{$category->id}}">{{ $category->name}}</option>
-                                                @endforeach
-                                                @endif
-                                               
-                                            </select>
-                                             <p></p>
-                                            
+							<div class="card">
+								<div class="card-body">								
+									<div class="row">
+										<div class="col-md-12">
+											<div class="mb-3">
+												<label for="name">Category</label>
+												<select name="category" id="category" class="form-control">
+													<option value=""> select a category</option>
+													@if($categories->isNotEmpty())
+													@foreach ($categories as $category )
+													<option value="{{$category->id}}">{{ $category->name}}</option>
+													@endforeach
+													@endif
+													
+												</select>
+													<p></p>
+												
+											</div>
 										</div>
+										<div class="col-md-6">
+											<div class="mb-3">
+												<label for="name">Name</label>
+												<input type="text"  name="name" id="name" class="form-control" placeholder="Name">	
+												<p></p>
+											</div>
+											
+										</div>
+										<div class="col-md-6">
+											<div class="mb-3">
+												<label for="email">Slug</label>
+												<input type="text" readonly  name="slug" id="slug" class="form-control" placeholder="Slug">
+												<p></p>	
+											</div>
+											
+										</div>	
+										<div class="col-md-6">
+											<div class="mb-3">
+												<label for="email">Status</label>
+												<select name="status" id="status" class="form-control">
+												<option value ="1">Active</option>
+												<option value ="0">Block</option>                                            
+												</select>
+												<p></p>
+											</div>
+											
+										</div>									
 									</div>
-									<div class="col-md-6">
-										<div class="mb-3">
-											<label for="name">Name</label>
-											<input type="text"  name="name" id="name" class="form-control" placeholder="Name">	
-                                            <p></p>
-										</div>
-                                        
-									</div>
-									<div class="col-md-6">
-										<div class="mb-3">
-											<label for="email">Slug</label>
-											<input type="text" readonly  name="slug" id="slug" class="form-control" placeholder="Slug">
-                                            <p></p>	
-										</div>
-                                        
-									</div>	
-                                    <div class="col-md-6">
-										<div class="mb-3">
-											<label for="email">Status</label>
-                                            <select name="status" id="status" class="form-control">
-                                            <option value ="1">Active</option>
-                                            <option value ="0">Block</option>                                            
-                                            </select>
-                                            <p></p>
-										</div>
-                                        
-									</div>									
-								</div>
-							</div>							
-						</div>
-						<div class="pb-5 pt-3">
-							<button type="submit"class="btn btn-primary">Create</button>
-							<a href="subcategory.html" class="btn btn-outline-dark ml-3">Cancel</a>
-						</div>
+								</div>							
+							</div>
+							<div class="pb-5 pt-3">
+								<button type="submit"class="btn btn-primary">Create</button>
+								<a href="subcategory.html" class="btn btn-outline-dark ml-3">Cancel</a>
+						    </div>
                         </form>
 					</div>
 					<!-- /.card -->
@@ -99,7 +99,7 @@ $('#name').change(function(){
 });
 $('#subCategoryForm').submit(function(event){
     event.preventDefault();
-    var element =$(this);
+    var element =$('#subCategoryForm');
 	$("button[type=submit]").prop('disable',true);
 
     $.ajax({
@@ -111,7 +111,7 @@ $('#subCategoryForm').submit(function(event){
 				$("button[type=submit]").prop('disable',false);
 
 			if(response['status']== true){
-				window.location.href="{{ route('categories.index')}}";
+				window.location.href="{{ route('sub-categories.index')}}";
 
 				$('#name').removeClass('is-invalid')
 				.siblings('p')
