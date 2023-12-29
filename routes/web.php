@@ -67,6 +67,8 @@ Route::group(['prefix'=>'admin'],function(){
 
         // Brand Routes
         Route::get('/brands/create',[BrandsController::class,'create'])->name('brand.create');
+        Route::post('/brands',[BrandsController::class,'store'])->name('brand.store');
+
 
 
 

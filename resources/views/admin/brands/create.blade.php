@@ -17,28 +17,41 @@
 				<section class="content">
 					<!-- Default box -->
 					<div class="container-fluid">
+					<form action="" method="post" id="createBrandForm" name="createBrandForm">
 						<div class="card">
 							<div class="card-body">								
 								<div class="row">
 									<div class="col-md-6">
 										<div class="mb-3">
 											<label for="name">Name</label>
-											<input type="text" name="name" id="name" class="form-control" placeholder="Name">	
+											<input type="text" name="name" id="name" class="form-control" placeholder="Name">
+											<p></p>	
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="mb-3">
 											<label for="email">Slug</label>
-											<input type="text" name="slug" id="slug" class="form-control" placeholder="Slug">	
+											<input readonly type="text" name="slug" id="slug" class="form-control" placeholder="Slug">
+											<p></p>		
 										</div>
-									</div>									
+									</div>
+									 <div class="col-md-6">
+										<div class="mb-3">
+											<label for="status">Status</label>
+											<select  name="status" id="status" class="form-control" placeholder="select status">
+                                            <option value="1">Active</option>
+                                            <option value="0">Block</option>
+                                            </select>
+										</div>
+									</div>										
 								</div>
 							</div>							
 						</div>
 						<div class="pb-5 pt-3">
-							<button class="btn btn-primary">Create</button>
+							<button type="submit" class="btn btn-primary">Create</button>
 							<a href="brands.html" class="btn btn-outline-dark ml-3">Cancel</a>
 						</div>
+						</form>
 					</div>
 					<!-- /.card -->
 				</section>
@@ -48,7 +61,7 @@
 @endsection
 @section('customjs')  
 <script>
-$('#categoryForm').submit(function(event){
+$('#createBrandForm').submit(function(event){
     event.preventDefault();
     var element =$(this);
 	$("button[type=submit]").prop('disable',true);
@@ -62,7 +75,7 @@ $('#categoryForm').submit(function(event){
 				$("button[type=submit]").prop('disable',false);
 
 			if(response['status']== true){
-				window.location.href="{{ route('categories.index')}}";
+				window.location.href="{{ route('brand.index')}}";
 
 				$('#name').removeClass('is-invalid')
 				.siblings('p')
