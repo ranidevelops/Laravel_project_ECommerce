@@ -66,8 +66,17 @@ Route::group(['prefix'=>'admin'],function(){
         Route::post('/upload-temp-image',[TempImagesController ::class,'create'])->name('temp-images.create');
 
         // Brand Routes
-        Route::get('/brands/create',[BrandsController::class,'create'])->name('brand.create');
-        Route::post('/brands',[BrandsController::class,'store'])->name('brand.store');
+        Route::get('/brands/create',[BrandsController::class,'create'])->name('brands.create');
+        Route::post('/brands',[BrandsController::class,'store'])->name('brands.store');
+        Route::get('/brands',[BrandsController::class,'index'])->name('brands.index');
+        Route::get('/brands/{brands}/edit',[BrandsController::class,'edit'])->name('brands.edit');
+        Route::put('/brands/{brands}/edit',[BrandsController::class,'update'])->name('brands.update');
+
+
+
+
+
+
 
 
 
