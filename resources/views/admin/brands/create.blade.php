@@ -67,7 +67,7 @@ $('#createBrandForm').submit(function(event){
 	$("button[type=submit]").prop('disable',true);
 
     $.ajax({
-        url:'{{ route('brand.store')}}',
+        url:'{{ route('brands.store')}}',
         type:'post',
         data:element.serializeArray(),
         datatype:'json',

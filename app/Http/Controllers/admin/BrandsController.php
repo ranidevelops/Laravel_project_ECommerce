@@ -101,4 +101,34 @@ class BrandsController extends Controller
         
     
        }
+       public function destroy($Id,Request $request){
+        $brand = Brand::find($Id);
+        if(empty($brand)){
+        $request->session()->flash('error','brand not found');
+
+
+            return response()->json([
+                'status'=>true,
+                'message'=>'brand not found.'
+    
+            ]);
+    
+        }
+
+
+       
+        $brand->delete();
+
+        $request->session()->flash('success','brand deleted successfully');
+
+
+        return response()->json([
+            'status'=>true,
+            'message'=>'brand deleted successfully.'
+
+        ]);
+
+
+
+    }   
 }

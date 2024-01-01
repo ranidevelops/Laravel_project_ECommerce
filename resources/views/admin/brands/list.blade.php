@@ -105,7 +105,7 @@
 <script>
  function deleteCategory(id){
     
-	var url ="{{ route('categories.delete','ID') }}"
+	var url ="{{ route('brands.delete','ID') }}"
 	var newUrl = url.replace("ID",id)
 	if(confirm("Are you sure you want to delete this data.")){
 	
@@ -122,7 +122,7 @@
 				$("button[type=submit]").prop('disable',false);
 
 			if(response['status']== true){
-				window.location.href="{{ route('categories.index')}}";
+				window.location.href="{{ route('brands.index')}}";
 
 			}
 
