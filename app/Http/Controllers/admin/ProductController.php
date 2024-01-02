@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
-{
+{   public function index(){
+
+    }
     public function create(){
         $data =[];
         $categories = Category::orderBy('name','ASC')->get();

@@ -78,6 +78,9 @@ Route::group(['prefix'=>'admin'],function(){
         // products routes
         Route::get('/product/create',[ProductController::class,'create'])->name('products.create');
         Route::post('/products',[ProductController::class,'store'])->name('products.store');
+        Route::get('/brands',[ProductController::class,'index'])->name('products.index');
+
+
         Route::get('/products-subcategories',[ProductSubCategoryController::class,'index'])->name('products-subcategories.index');
 
 
