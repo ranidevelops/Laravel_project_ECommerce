@@ -58,6 +58,10 @@
                                             </div>
                                         </div>	                                                                      
                                     </div>
+                                    <div class="row" id="product-gallery">
+
+                                    
+                                    </div>
                                     <div class="card mb-3">
                                         <div class="card-body">
                                             <h2 class="h4 mb-3">Pricing</h2>								
@@ -275,6 +279,33 @@ $('#category').change(function(){
         }
     });
 });
+Dropzone.autoDiscover = false;    
+const dropzone = $("#image").dropzone({ 
+    
+    url:  "{{ route('temp-images.create') }}",
+    maxFiles: 10,
+    paramName: 'image',
+    addRemoveLinks: true,
+    acceptedFiles: "image/jpeg,image/png,image/gif",
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }, success: function(file, response) {
+    
+
+    var html = `<div class="col-md-3">
+        <div class="card">
+            <input type="hidden" name="image_array[]" value="${response.image_id}">
+            <img src="${response.ImagePath}" class="card-img-top" alt="">
+            <div class="card-body">
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>`;
+
+    $("#product-gallery").append(html);
+}
+
+});		
 
 </script>
 
