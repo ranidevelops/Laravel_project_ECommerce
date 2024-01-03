@@ -158,7 +158,7 @@
                                         <div class="card-body">	
                                             <h2 class="h4 mb-3">Product brand</h2>
                                             <div class="mb-3">
-                                                <select name="status" id="status" class="form-control">
+                                                <select name="brand" id="brand" class="form-control">
                                                 <option value="">Select a Brand</option>
 
                                                     @if($brands->isNotEmpty())
@@ -187,7 +187,7 @@
                             </div>
                             
                             <div class="pb-5 pt-3">
-                                <button class="btn btn-primary">Create</button>
+                                <button  class="btn btn-primary">Create</button>
                                 <a href="products.html" class="btn btn-outline-dark ml-3">Cancel</a>
                             </div>
                         </div>
@@ -222,6 +222,8 @@ $('#title').change(function(){
 $('#productForm').submit(function(event){
     event.preventDefault();
     var formArray = $(this).serializeArray();
+    {{-- $("button[type=submit]").prop('disable',true); --}}
+
 
     $.ajax({
         url:'{{route("products.store")}}',
@@ -234,12 +236,14 @@ $('#productForm').submit(function(event){
             }else{
                 var errors =response['errors'];
                 $(".error").removeClass('invalid-feedback').html('');
+                $("input[type='text'],select,input[type='number']").removeClass('is-invalid');
 
                 $.each(errors,function(key,value){
-                    $('#' + key).addClass('is_invalid')
+                    $('#' + key).addClass('is-invalid')  // Corrected class name
                     .siblings('p')
                     .addClass('invalid-feedback')
                     .html(value);
+
 
                 });
             }
