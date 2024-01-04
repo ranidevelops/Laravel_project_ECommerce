@@ -17,6 +17,10 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {   public function index(){
+    $products = Product::latest('id')->with('product_images')->paginate();
+    
+    $data['products'] = $products;
+    return view('admin.products.list',$data);
 
     }
     public function create(){
@@ -85,7 +89,7 @@ class ProductController extends Controller
 
                     // large image
                     $sourcePath = public_path().'/temp/'.$tempImageInfo->name;
-                    $destPath = public_path().'/uploads/product/large/'.$tempImageInfo->name;
+                    $destPath = public_path().'/uploads/product/large/'.$imageName;
                     $image = Image::make($sourcePath);
                     $image->resize(1400,null,function($constraint){
                         $constraint->aspectRatio();
@@ -94,7 +98,7 @@ class ProductController extends Controller
                     $image->save($destPath);
 
                     // small Image
-                    $destPath = public_path().'/uploads/product/small/'.$tempImageInfo->name;
+                    $destPath = public_path().'/uploads/product/small/'.$imageName;
                     $image = Image::make($sourcePath);
                     $image->fit(300,300); 
                     $image->save($destPath);
