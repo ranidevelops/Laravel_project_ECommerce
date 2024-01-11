@@ -16,8 +16,14 @@ use Image;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
-{   public function index(){
-    $products = Product::latest('id')->with('product_images')->paginate();
+{   public function index(Request $request){
+    $products = Product::latest('id')->with('product_images');
+
+    if($request->get('keyword')!= ""){
+        $products = $products->where('title','like','%'.$request->keyword.'%');
+    }
+    
+    $products = $products->paginate();
     
     $data['products'] = $products;
     return view('admin.products.list',$data);
@@ -69,46 +75,38 @@ class ProductController extends Controller
             $product->save();
 
             // save Gallery pics
-            if(!empty($request->image_array)){
-                foreach($request->image_array as $temp_image_id){
-
+            if (!empty($request->image_array)) {
+                foreach ($request->image_array as $temp_image_id) {
                     $tempImageInfo = TempImage::find($temp_image_id);
-                    $extArray = explode('.',$tempImageInfo->name);
+                    $extArray = explode('.', $tempImageInfo->name);
                     $ext = last($extArray);
-
+        
                     $productImage = new ProductImage();
                     $productImage->product_id = $product->id;
-                    $productImage->image = 'NULL';
-                    $productImage->save();
-
-                    $imageName = $product->id.'-'.$productImage->id.'-'.time().'.'.$ext;
+        
+                    // Generate a unique image name
+                    $imageName = $product->id . '-' . time() . '-' . $temp_image_id . '.' . $ext;
+        
                     $productImage->image = $imageName;
                     $productImage->save();
-
-                    // Generate product thumbnail
-
-                    // large image
-                    $sourcePath = public_path().'/temp/'.$tempImageInfo->name;
-                    $destPath = public_path().'/uploads/product/large/'.$imageName;
+        
+                    // Move the image from temp to the product image directory
+                    $sourcePath = public_path() . '/temp/' . $tempImageInfo->name;
+                    $destPath = public_path() . '/uploads/product/large/' . $imageName;
                     $image = Image::make($sourcePath);
-                    $image->resize(1400,null,function($constraint){
+                    $image->resize(1400, null, function ($constraint) {
                         $constraint->aspectRatio();
-
                     });
                     $image->save($destPath);
-
-                    // small Image
-                    $destPath = public_path().'/uploads/product/small/'.$imageName;
+        
+                    // Small Image
+                    $destPath = public_path() . '/uploads/product/small/' . $imageName;
                     $image = Image::make($sourcePath);
-                    $image->fit(300,300); 
+                    $image->fit(300, 300);
                     $image->save($destPath);
-
-
-
-
-
                 }
             }
+        
 
             return response()->json([
                 'status' => true,
