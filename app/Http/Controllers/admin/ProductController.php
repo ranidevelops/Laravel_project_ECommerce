@@ -126,4 +126,15 @@ class ProductController extends Controller
 
 
     }
+    public function edit($id, Request $request){
+        $product = Product::find($id);
+        $data =[];
+        $data['product'] = $product;
+        $categories = Category::orderBy('name','ASC')->get();
+        $brands = Brand::orderBy('name','ASC')->get();
+        $data['categories']= $categories;
+        $data['brands'] = $brands;
+
+        return view('admin.products.edit',$data);
+    }
 }
