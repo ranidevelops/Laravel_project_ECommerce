@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\BrandsController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
+use App\Http\Controllers\FrontController;
 
 use App\Http\Controllers\admin\TempImagesController;
 use Illuminate\Http\Request;
@@ -25,9 +26,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/',[FrontController::class,'index'])->name('front.home');
 Route::group(['prefix'=>'admin'],function(){
 
     Route::group(['middleware'=>'admin.guest'],function(){
