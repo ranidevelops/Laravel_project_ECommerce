@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\BrandsController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\ShopController;
 
 use App\Http\Controllers\admin\TempImagesController;
 use Illuminate\Http\Request;
@@ -30,6 +31,7 @@ use Illuminate\Http\Request;
 //     return view('welcome');
 // });
 Route::get('/',[FrontController::class,'index'])->name('front.home');
+Route::get('/shop',[ShopController::class,'index'])->name('front.shop');
 Route::group(['prefix'=>'admin'],function(){
 
     Route::group(['middleware'=>'admin.guest'],function(){

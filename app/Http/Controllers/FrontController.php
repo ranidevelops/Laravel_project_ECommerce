@@ -14,6 +14,6 @@ class FrontController extends Controller
         $latestProducts = Product::orderBy('id','DESC')->where('status',1)->take(8)->get();
         $data['latestproducts'] = $latestProducts;
 
-        return view('front.home',$data);
+        return view('front.layouts.home',$data);
     }
 }
