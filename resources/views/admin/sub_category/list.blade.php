@@ -44,6 +44,8 @@
 										<tr>
 											<th width="60">ID</th>
 											<th>Name</th>
+											<th>CategoryName</th>
+						
 											<th>Slug</th>
 											<th width="100">Status</th>
 											<th width="100">Action</th>

@@ -48,7 +48,7 @@
 										<div class="col-md-6">
 											<div class="mb-3">
 												<label for="email">Slug</label>
-												<input type="text" value={{ $subCategory->slug}} readonly  name="slug" id="slug" class="form-control" placeholder="Slug">
+												<input type="text" value={{ $subCategory->slug}}   name="slug" id="slug" class="form-control" placeholder="Slug">
 												<p></p>	
 											</div>
 											
@@ -64,7 +64,16 @@
 												<p></p>
 											</div>
 											
-										</div>									
+										</div>	
+										<div class="col-md-6">
+										<div class="mb-3">
+											<label for="status">Show on Home</label>
+											<select  name="showHome" id="showHome" class="form-control" placeholder="select status">
+                                            <option  {{ ($subCategory->showHome == 'Yes') ? 'selected': ''}}  value="Yes">Yes</option>
+                                            <option   {{ ($subCategory->showHome == 'No') ? 'selected': ''}}  value="No">No</option>
+                                            </select>
+										</div>
+									  </div>									
 									</div>
 								</div>							
 							</div>

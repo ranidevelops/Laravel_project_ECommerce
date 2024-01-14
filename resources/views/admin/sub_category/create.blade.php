@@ -63,7 +63,16 @@
 												<p></p>
 											</div>
 											
-										</div>									
+										</div>
+										<div class="col-md-6">
+										<div class="mb-3">
+											<label for="status">Show on Home</label>
+											<select  name="showHome" id="showHome" class="form-control" placeholder="select status">
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                            </select>
+										</div>
+									  </div>										
 									</div>
 								</div>							
 							</div>
