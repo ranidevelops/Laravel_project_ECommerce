@@ -69,7 +69,7 @@ class ShopController extends Controller
       }
 
       $products = $products->orderBy('id','DESC');
-      $products = $products->get();
+      $products = $products->paginate(3);
       // $products = Product::orderBy('id','DESC')->where('status',1)->get();
 
       $data['categories'] = $categories;

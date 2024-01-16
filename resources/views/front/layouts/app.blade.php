@@ -96,7 +96,7 @@
                         @if($category->sub_category->isNotEmpty())
                         <ul class="dropdown-menu dropdown-menu-dark">
                         @foreach($category->sub_category as $subCategory)
-                            <li><a class="dropdown-item nav-link" href="#">{{$subCategory->name}}</a></li>
+                            <li><a class="dropdown-item nav-link" href="{{route('front.shop',[$category->slug,$subCategory->slug])}}">{{$subCategory->name}}</a></li>
                         @endforeach
 
                         </ul>   
@@ -108,46 +108,7 @@
                     @endforeach
 					
                     @endif
-					{{-- <li class="nav-item dropdown">
-						<button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-							Men's Fashion
-						</button>
-						<ul class="dropdown-menu dropdown-menu-dark">
-							<li><a class="dropdown-item" href="#">Shirts</a></li>
-							<li><a class="dropdown-item" href="#">Jeans</a></li>
-							<li><a class="dropdown-item" href="#">Shoes</a></li>
-							<li><a class="dropdown-item" href="#">Watches</a></li>
-							<li><a class="dropdown-item" href="#">Perfumes</a></li>
-						</ul>
-					</li>
-					<li class="nav-item dropdown">
-						<button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-							Women's Fashion
-						</button>
-						<ul class="dropdown-menu dropdown-menu-dark">
-							<li><a class="dropdown-item" href="#">T-Shirts</a></li>
-							<li><a class="dropdown-item" href="#">Tops</a></li>
-							<li><a class="dropdown-item" href="#">Jeans</a></li>
-							<li><a class="dropdown-item" href="#">Shoes</a></li>
-							<li><a class="dropdown-item" href="#">Watches</a></li>
-							<li><a class="dropdown-item" href="#">Perfumes</a></li>
-						</ul>
-					</li>
-
-					<li class="nav-item dropdown">
-						<button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-							Appliances
-						</button>
-						<ul class="dropdown-menu dropdown-menu-dark">
-							<li><a class="dropdown-item" href="#">TV</a></li>
-							<li><a class="dropdown-item" href="#">Washing Machines</a></li>
-							<li><a class="dropdown-item" href="#">Air Conditioners</a></li>
-							<li><a class="dropdown-item" href="#">Vacuum Cleaner</a></li>
-							<li><a class="dropdown-item" href="#">Fans</a></li>
-							<li><a class="dropdown-item" href="#">Air Coolers</a></li>
-						</ul>
-					</li>
-					 --}}
+					
 					
       			</ul>      			
       		</div>   
@@ -217,7 +178,7 @@
 <script src="{{asset('front-assets/js/js/instantpages.5.1.0.min.js')}}"></script>
 <script src="{{asset('front-assets/js/lazyload.17.6.0.min.js')}}"></script>
 <script src="{{asset('front-assets/js/slick.min.js')}}"></script>
-<script src="{{asset('front-assets/js/ion.rangeSlider.min.js')}}">
+<script src="{{asset('front-assets/js/ion.rangeSlider.min.js')}}"></script>
 <script src="{{asset('front-assets/js/custom.js')}}"></script>
 <script>
 window.onscroll = function() {myFunction()};

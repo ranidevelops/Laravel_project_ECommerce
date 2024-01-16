@@ -1,6 +1,4 @@
-@extends('front.layouts.app')
-@section('content')
- <section class="section-5 pt-3 pb-3 mb-3 bg-white">
+<section class="section-5 pt-3 pb-3 mb-3 bg-white">
         <div class="container">
             <div class="light-font">
                 <ol class="breadcrumb primary-color mb-0">
@@ -81,41 +79,46 @@
                                     </div>
                                 @endforeach
                             @endif
-                        </div>
                     </div>
+                    </div>
+
                     <div class="sub-title mt-5">
                         <h2>Price</h3>
                     </div>
                     
                     <div class="card">
                         <div class="card-body">
-                        <input type="text" class='js-range-slider' name='my_range' value=''/>               
+                            <input type="text" class='js-range-slider' name='my_range' value=''/>               
                         </div>
-                        
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="row pb-3">
                         <div class="col-12 pb-1">
                             <div class="d-flex align-items-center justify-content-end mb-4">
-                               <div class="m1-2">
-                               <select name="sort" id="sort" class="form-control">
+                                <div class="ml-2">
+                                    {{-- <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-bs-toggle="dropdown">Sorting</button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#">Latest</a>
+                                            <a class="dropdown-item" href="#">Price High</a>
+                                            <a class="dropdown-item" href="#">Price Low</a>
+                                        </div>
+                                    </div>                                     --}}
+                                    <select name="sort" id="sort" class="form-control">
                                     <option value="latest" {{($sort == 'latest') ? 'selected' : ''}}>Latest</option>
                                     <option value="price_desc" {{($sort == 'price_desc') ? 'selected' : ''}} >Price High</option>
                                     <option value="price_asc" {{($sort == 'price_asc') ? 'selected' : ''}} >Price Low</option>
-                                </select>    
 
-                               </div>
-                                
+
+                                </div>
                             </div>
                         </div>
-
                         @if($products->isNotEmpty())
                         @foreach ($products as $product)
                             @php
                                 $productImage = $product->product_images->first();
                             @endphp
-
                         <div class="col-md-4">
                             <div class="card product-card">
                                 <div class="product-image position-relative">
@@ -146,14 +149,14 @@
                                     </div>
                                 </div>                        
                             </div>                                               
-                        </div>  
+                        </div> 
                         @endforeach
                         @endif
                          
                         
+                       
                         <div class="col-md-12 pt-5">
-                            {{ $products->links()}}
-                            {{-- <nav aria-label="Page navigation example">
+                            <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
                                     <li class="page-item disabled">
                                     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -165,15 +168,14 @@
                                     <a class="page-link" href="#">Next</a>
                                     </li>
                                 </ul>
-                            </nav> --}}
+                            </nav>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-@endsection
-@section('customJs')
+    @section('customJs')
 <script>
  
 rangeSlider = $(".js-range-slider").ionRangeSlider({
@@ -225,5 +227,3 @@ function apply_filters(){
 }
 </script>
 @endsection
-
-
