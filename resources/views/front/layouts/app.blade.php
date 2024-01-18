@@ -44,6 +44,7 @@
 
 	<!-- Fav Icon -->
 	<link rel="shortcut icon" type="image/x-icon" href="#" />
+	<meta name="csrf-token"content="{{ csrf_token()}}">
 </head>
 <body data-instant-intensity="mousedown">
 
@@ -180,6 +181,7 @@
 <script src="{{asset('front-assets/js/slick.min.js')}}"></script>
 <script src="{{asset('front-assets/js/ion.rangeSlider.min.js')}}"></script>
 <script src="{{asset('front-assets/js/custom.js')}}"></script>
+
 <script>
 window.onscroll = function() {myFunction()};
 
@@ -193,6 +195,20 @@ function myFunction() {
     navbar.classList.remove("sticky");
   }
 }
+
+</script>
+<script type="text/javascript">
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+
+	$(document).ready(function(){
+		$(".summernote").summernote({
+			height:250
+		});
+	});
 </script>
 @yield('customJs')
 </body>
