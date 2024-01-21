@@ -28,4 +28,7 @@ class CartController extends Controller
     public function cart(){
         return view('front.layouts.cart');
     }
+    public function checkout(){
+        return view('front.layouts.checkout');
+    }
 }

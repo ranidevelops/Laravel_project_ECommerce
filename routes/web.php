@@ -39,6 +39,9 @@ Route::get('/shop/{categorySlug?}/{subCategorySlug?}',[ShopController::class,'in
 Route::get('/product/{slug}',[ShopController::class,'product'])->name('front.product');
 Route::get('/cart',[CartController::class,'cart'])->name('front.cart');
 Route::get('/register',[AuthController::class,'register'])->name('account.register');
+Route::get('/login',[AuthController::class,'login'])->name('account.login');
+Route::get('/checkout',[CartController::class,'checkout'])->name('front.checkout');
+
 Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.processRegister');
 
 
