@@ -79,10 +79,6 @@ Route::group(['prefix'=>'admin'],function(){
         Route::delete('/sub-categories/{subcategory}',[CategoryController::class,'destroy'])->name('sub-categories.delete');
 
 
-
-
-
-
         //temp-images.create
         Route::post('/upload-temp-image',[TempImagesController ::class,'create'])->name('temp-images.create');
 
