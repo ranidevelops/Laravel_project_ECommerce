@@ -38,15 +38,30 @@ Route::get('/',[FrontController::class,'index'])->name('front.home');
 Route::get('/shop/{categorySlug?}/{subCategorySlug?}',[ShopController::class,'index'])->name('front.shop');
 Route::get('/product/{slug}',[ShopController::class,'product'])->name('front.product');
 Route::get('/cart',[CartController::class,'cart'])->name('front.cart');
-Route::get('/register',[AuthController::class,'register'])->name('account.register');
-Route::get('/login',[AuthController::class,'login'])->name('account.login');
 Route::get('/checkout',[CartController::class,'checkout'])->name('front.checkout');
 
-Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.processRegister');
-
-
-
 Route::post('/add-to-cart',[CartController::class,'addToCart'])->name('front.addToCart');
+
+Route::group(['prefix'=>'account'],function(){
+    Route::group(['middleware' => 'guest'],function(){
+        Route::get('/register',[AuthController::class,'register'])->name('account.register');
+        Route::get('/login',[AuthController::class,'login'])->name('account.login');
+        Route::post('/login',[AuthController::class,'authenticate'])->name('account.authenticate');
+        Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.processRegister');
+
+    
+    
+
+    });
+    Route::group(['middleware' => 'auth'],function(){
+        Route::get('/profile',[AuthController::class,'dashboard'])->name('account.profile');
+
+    });
+   
+
+
+
+});
 Route::group(['prefix'=>'admin'],function(){
 
     Route::group(['middleware'=>'admin.guest'],function(){

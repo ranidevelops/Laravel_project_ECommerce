@@ -15,10 +15,9 @@
 
 
 		<link rel="stylesheet" href="{{ asset('admin-assets/css/custom.css')}}">
-<<<<<<< HEAD
+
 		<meta name="csrf-token"content="{{ csrf_token()}}">
-=======
->>>>>>> origin/main
+
 	</head>
 	<body class="hold-transition sidebar-mini">
 		<!-- Site wrapper -->

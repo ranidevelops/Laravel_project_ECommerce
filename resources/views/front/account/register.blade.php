@@ -36,28 +36,17 @@
                     </div> 
                     <button type="submit" class="btn btn-dark btn-block btn-lg" value="Register">Register</button>
                 </form>			
-                <div class="text-center small">Already have an account? <a href="login.php">Login Now</a></div>
+                <div class="text-center small">Already have an account? <a href="{{ route('account.login')}}">Login Now</a></div>
             </div>
         </div>
     </section>
 @endsection()
 @section('customJs')
 <script type="text/javascript">
-$('#registrationForm').submit(function(event){
+   $("#registrationFrom").submit(function(event){
     console.log("hello");
-    event.preventDefault();
-    $.ajax({
-        url: '{{ route("account.processRegister") }}',
-        type: 'post',
-        data: $(this).serializeArray(),
-        dataType: 'json',
-        success: function(response) {
-            // Handle the success response here
-        },
-        error: function(jQXHR, exception) {
-            console.log("something went wrong");
-        }
-    });
-});
+
+   });
 </script>
+
 @endsection
