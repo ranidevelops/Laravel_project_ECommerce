@@ -43,29 +43,34 @@ Route::post('/add-to-cart',[CartController::class,'addToCart'])->name('front.add
 Route::post('/update-cart',[CartController::class,'updateCart'])->name('front.updateCart');
 Route::post('/delete-item',[CartController::class,'deleteItem'])->name('front.deleteItem.cart');
 
+Route::get('/register',[AuthController::class,'register'])->name('account.register');
+Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.processRegister');
 
 
 
-Route::group(['prefix'=>'account'],function(){
-    Route::group(['middleware' => 'guest'],function(){
-        Route::get('/register',[AuthController::class,'register'])->name('account.register');
-        Route::get('/login',[AuthController::class,'login'])->name('account.login');
-        Route::post('/login',[AuthController::class,'authenticate'])->name('account.authenticate');
-        Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.processRegister');
+
+
+
+// Route::group(['prefix'=>'account'],function(){
+//     Route::group(['middleware' => 'guest'],function(){
+//         // Route::get('/register',[AuthController::class,'register'])->name('account.register');
+//         Route::get('/login',[AuthController::class,'login'])->name('account.login');
+//         Route::post('/login',[AuthController::class,'authenticate'])->name('account.authenticate');
+//         // Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.processRegister');
 
     
     
 
-    });
-    Route::group(['middleware' => 'auth'],function(){
-        Route::get('/profile',[AuthController::class,'dashboard'])->name('account.profile');
+//     });
+//     Route::group(['middleware' => 'auth'],function(){
+//         Route::get('/profile',[AuthController::class,'dashboard'])->name('account.profile');
 
-    });
+//     });
    
 
 
 
-});
+// });
 Route::group(['prefix'=>'admin'],function(){
 
     Route::group(['middleware'=>'admin.guest'],function(){

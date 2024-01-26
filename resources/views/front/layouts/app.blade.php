@@ -37,6 +37,16 @@
     <link rel="stylesheet" type="text/css" href="{{asset('front-assets/css/style.css')}}" />
 	<link rel="stylesheet" type="text/css" href="{{asset('front-assets/css/ion.rangeSlider.min.css')}}">
 
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+
+<!-- Include jQuery (required) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Include Summernote JavaScript from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -174,6 +184,8 @@
 		</div>
 	</div>
 </footer>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script src="{{asset('front-assets/js/jquery-3.6.0.min.js')}}"></script>
 <script src="{{asset('front-assets/js/bootstrap.bundle.5.1.3.min.js')}}"></script>
 {{-- <script src="{{asset('front-assets/js/js/instantpages.5.1.0.min.js')}}"></script> --}}
