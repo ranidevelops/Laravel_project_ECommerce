@@ -18,14 +18,14 @@
                 @csrf
                     <h4 class="modal-title">Login to Your Account</h4>
                     <div class="form-group">
-                        <input type="text" class="form-control @error('email') is-invalid @enderror" placeholder="Email" required="required" name="email" value={{ old('email')}}>
+                        <input type="text" class="form-control @error('email') is-invalid @enderror" placeholder="Email"  name="email" value={{ old('email')}}>
                         @error('email')
                          <p class="invalid-feedback">{{ $message}}</p>
 
                         @enderror
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" required="required" name="password">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password"  name="password">
                         @error('password')
                          <p class="invalid-feedback">{{ $message}}</p>
 
