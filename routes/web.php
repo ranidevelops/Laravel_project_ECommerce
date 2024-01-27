@@ -45,6 +45,10 @@ Route::post('/delete-item',[CartController::class,'deleteItem'])->name('front.de
 
 Route::get('/register',[AuthController::class,'register'])->name('account.register');
 Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.processRegister');
+Route::get('/login',[AuthController::class,'login'])->name('account.login');
+ Route::post('/login',[AuthController::class,'authenticate'])->name('account.authenticate');
+
+
 
 
 
@@ -55,7 +59,6 @@ Route::post('/process-register',[AuthController::class,'processRegister'])->name
 //     Route::group(['middleware' => 'guest'],function(){
 //         // Route::get('/register',[AuthController::class,'register'])->name('account.register');
 //         Route::get('/login',[AuthController::class,'login'])->name('account.login');
-//         Route::post('/login',[AuthController::class,'authenticate'])->name('account.authenticate');
 //         // Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.processRegister');
 
     
