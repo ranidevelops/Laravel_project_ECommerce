@@ -130,4 +130,14 @@ class CartController extends Controller
 
 
     }
+    public function checkout(){
+        if(Cart::count() == 0){
+            return redirect()->route('front.cart');
+        }
+        if(Auth::check() == false){
+            return redirect()->route('account.login');
+
+        }
+        return view('front.layouts.checkout');
+    }
  }
