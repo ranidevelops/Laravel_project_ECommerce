@@ -48,6 +48,10 @@ Route::get('/register',[AuthController::class,'register'])->name('account.regist
 Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.processRegister');
 Route::get('/login',[AuthController::class,'login'])->name('account.login');
 Route::post('/login',[AuthController::class,'authenticate'])->name('account.authenticate');
+Route::get('/profile',[AuthController::class,'dashboard'])->name('account.profile');
+Route::get('/logout', [AuthController::class, 'logout'])->name('account.logout');
+
+
 
 
 Route::group(['prefix'=>'account'],function(){

@@ -44,27 +44,33 @@ class AuthController extends Controller
         }
     }
     public function authenticate(Request $request){
+        // Validate the request data
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
         ]);
     
-        if ($validator->passes()) {
-            $credentials = $request->only('email','password');
-    
-            if (Auth::attempt($credentials, $request->get('remember'))) {
-                // Authentication was successful
-                return redirect()->route('account.profile');
-            } else {
-                // Authentication failed
-                session()->flash('error', 'Either email/password is incorrect.');
-                return redirect()->route('account.login');
-            }
-        } else {
-            // Validation failed
+        // If validation fails, redirect back with errors
+        if ($validator->fails()) {
             return redirect()->route('account.login')->withErrors($validator)->withInput($request->only('email'));
         }
+    
+        // Attempt authentication
+        $credentials = $request->only('email', 'password');
+    
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
+            // echo "hello"; die;
+            // Authentication successful
+            return redirect()->route('account.profile');
+        }
+    
+        // Authentication failed
+        return redirect()->route('account.login')->with('error', 'Invalid email or password.');
     }
+    public function dashboard(){
+        return view('front.account.profile');
+    }
+
     public function profile(){
         echo"hello";
         

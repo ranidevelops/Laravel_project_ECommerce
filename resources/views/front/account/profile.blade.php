@@ -15,7 +15,7 @@
         <div class="container  mt-5">
             <div class="row">
                 <div class="col-md-3">
-                    <?php include('includes/account-panel.php');?>
+                    @include('front.account.common.sidebar')
                 </div>
                 <div class="col-md-9">
                     <div class="card">
