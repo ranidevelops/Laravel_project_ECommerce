@@ -59,6 +59,10 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
     
         if (Auth::attempt($credentials, $request->filled('remember'))) {
+            if(!session()->has('url.intended')){
+                return redirect(session()->get('url.intended'));
+                
+            }
             // echo "hello"; die;
             // Authentication successful
             return redirect()->route('account.profile');

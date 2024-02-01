@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
+
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
@@ -135,9 +137,13 @@ class CartController extends Controller
             return redirect()->route('front.cart');
         }
         if(Auth::check() == false){
+            if(!session()->has('url.intended')){
+                session(['url.intended'=> url()->current()]);
+            }
             return redirect()->route('account.login');
 
         }
+        session()->forget('url.intended');
         return view('front.layouts.checkout');
     }
  }
