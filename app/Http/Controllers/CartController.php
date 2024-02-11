@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Country; 
+
 
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -132,18 +134,29 @@ class CartController extends Controller
 
 
     }
-    public function checkout(){
-        if(Cart::count() == 0){
-            return redirect()->route('front.cart');
-        }
-        if(Auth::check() == false){
-            if(!session()->has('url.intended')){
-                session(['url.intended'=> url()->current()]);
-            }
-            return redirect()->route('account.login');
-
-        }
-        session()->forget('url.intended');
-        return view('front.layouts.checkout');
+    public function checkout()
+    {
+    if (Cart::count() == 0) {
+        return redirect()->route('front.cart');
     }
- }
+
+    if (Auth::check()) {
+        // User is already logged in, redirect to intended URL if set
+        if (session()->has('url.intended')) {
+            $intendedUrl = session()->get('url.intended');
+            session()->forget('url.intended');
+            return redirect($intendedUrl);
+        } else {
+            $countries = Country::orderBy('name','ASC')->get();
+            // If no intended URL is set, proceed to checkout
+            return view('front.layouts.checkout',[
+                'countries' => $countries
+            ]);
+        }
+    } else {
+        // User is not logged in, redirect to login page
+        session(['url.intended' => url()->current()]);
+        return redirect()->route('account.login');
+    }
+    }
+}
