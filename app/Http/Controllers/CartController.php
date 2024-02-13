@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use App\Models\CustomerAddress;
+use App\Models\Order;
+
 use App\Models\Country; 
 
 
@@ -158,5 +162,87 @@ class CartController extends Controller
         session(['url.intended' => url()->current()]);
         return redirect()->route('account.login');
     }
+    }
+    public function processCheckout(Request $request){
+        $validator = Validator::make($request->all(),[
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email',
+            'country' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'state'=>'required',
+            'zip' =>'required',
+            'mobile'=>'required'
+
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                'message' => 'Please fix the errors',
+                'status' => false,
+                'errors' => $validator->errors()
+
+            ]);
+        }
+
+        $user = Auth::user();
+
+        CustomerAddress::updateOrCreate(
+            ['user_id' => $user->id],
+            [   
+                'user_id' => $user->id,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+                'country_id' => $request->country,
+                'address' => $request->address,
+                'apartment' => $request->apartment,
+                'city' => $request->city,
+                'state' => $request->state,
+                'zip' => $request->zip,
+
+            ]
+        );
+        if($request->payment_method == 'cod'){
+
+
+            $shipping = 0;
+            $discount = 0;
+            $subTotal = Cart::subtotal(2,'.','');
+            $grandTotal = $subTotal+$shipping;
+
+            $order = new Order;
+            $order->subtotal = $subTotal;
+            $order->shipping = $shipping;
+            $order->grand_total = $grandTotal;
+            $order->user_id = $user->id;
+
+            $order->first_name = $request->first_name;
+            $order->last_name = $request->last_name;
+            $order->email = $request->email;
+            $order->mobile = $request->mobile;
+            $order->address = $request->address;
+            $order->apartment = $request->apartment;
+            $order->state = $request->state;
+            $order->city = $request->city;
+            $order->zip = $request->zip;
+            $order->notes = $request->notes;
+            $order->country_id = $request->country;
+            $order->save();
+
+
+
+
+
+            
+
+        }else{
+
+        }
+
+
+
+
     }
 }
