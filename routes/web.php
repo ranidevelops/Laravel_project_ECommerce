@@ -41,6 +41,8 @@ Route::get('/product/{slug}',[ShopController::class,'product'])->name('front.pro
 Route::get('/cart',[CartController::class,'cart'])->name('front.cart');
 Route::get('/checkout',[CartController::class,'checkout'])->name('front.checkout');
 Route::post('/process-checkout',[CartController::class,'processCheckout'])->name('front.processCheckout');
+Route::get('/thanks/{orderId}',[CartController::class,'thankyou'])->name('front.thankyou');
+
 
 
 Route::post('/add-to-cart',[CartController::class,'addToCart'])->name('front.addToCart');

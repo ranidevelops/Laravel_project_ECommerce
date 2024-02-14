@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\CustomerAddress;
 use App\Models\Order;
+use App\Models\OrderItem;
 
 use App\Models\Country; 
 
@@ -231,10 +232,29 @@ class CartController extends Controller
             $order->country_id = $request->country;
             $order->save();
 
+            // store order items in orderItems table
+            $orderItem = new OrderItem;
 
+            foreach(Cart::content() as $item){
+                $orderItem->product_id = $item->id;
+                $orderItem->order_id = $order->id;
+                $orderItem->name = $item->name;
+                $orderItem->qty = $item->qty;
+                $orderItem->price = $item->price;
+                $orderItem->total = $item->price*$item->qty;
+                $orderItem->save();
 
+            }
+            session()->flash('success','You have successfully placed your order.');
+            Cart::destroy();
 
+            return response()->json([
+                'message' => 'Order saved successfully.',
+                'orderId' => $order->id,
+                'status' => true,
+                'errors' => $validator->errors()
 
+            ]);
             
 
         }else{
@@ -244,5 +264,8 @@ class CartController extends Controller
 
 
 
+    }
+    public function thankyou(){
+        return view('front.layouts.thanks');
     }
 }
