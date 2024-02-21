@@ -12,6 +12,7 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactController;
 
 
 
@@ -42,6 +43,9 @@ Route::get('/cart',[CartController::class,'cart'])->name('front.cart');
 Route::get('/checkout',[CartController::class,'checkout'])->name('front.checkout');
 Route::post('/process-checkout',[CartController::class,'processCheckout'])->name('front.processCheckout');
 Route::get('/thanks/{orderId}',[CartController::class,'thankyou'])->name('front.thankyou');
+Route::get('/contact',[ContactController::class,'contact'])->name('front.contact');
+Route::post('/process-contact', [ContactController::class, 'processContact'])->name('contact.process');
+
 
 
 
@@ -49,6 +53,7 @@ Route::post('/add-to-cart',[CartController::class,'addToCart'])->name('front.add
 Route::post('/update-cart',[CartController::class,'updateCart'])->name('front.updateCart');
 Route::post('/delete-item',[CartController::class,'deleteItem'])->name('front.deleteItem.cart');
 
+// all the routes of AuthController
 Route::get('/register',[AuthController::class,'register'])->name('account.register');
 Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.processRegister');
 Route::get('/login',[AuthController::class,'login'])->name('account.login');
@@ -58,7 +63,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('account.logout')
 
 
 
-
+// defining middleware.
 Route::group(['prefix'=>'account'],function(){
  Route::group(['middleware' => 'guest'],function(){
         // Route::get('/login',[AuthController::class,'login'])->name('account.login');
@@ -75,6 +80,7 @@ Route::group(['prefix'=>'account'],function(){
 
 
  });
+//  admin middleware
 Route::group(['prefix'=>'admin'],function(){
 
     Route::group(['middleware'=>'admin.guest'],function(){
