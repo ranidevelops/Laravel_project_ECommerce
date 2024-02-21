@@ -163,6 +163,7 @@ class CartController extends Controller
         session(['url.intended' => url()->current()]);
         return redirect()->route('account.login');
     }
+    
     }
     public function processCheckout(Request $request){
         $validator = Validator::make($request->all(),[
