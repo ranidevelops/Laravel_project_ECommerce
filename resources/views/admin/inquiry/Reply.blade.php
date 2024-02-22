@@ -26,8 +26,6 @@
 											<label for="name">Reply To {{$contact->name}}</label>
                                             <input type="hidden" name="name" value={{$contact->name}}>
                                             <input type="hidden" name="userId" value={{$contact->id}}>
-
-
 											<textarea name="reply_message" id="reply_message" class="form-control" placeholder="Add your response"></textarea>
 											<p></p>	
 										</div>

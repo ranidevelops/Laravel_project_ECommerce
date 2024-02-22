@@ -158,12 +158,15 @@ class ContactController extends Controller
         ]);
 
         if($validator->passes()){
-            
+            //echo($request->)
+            // echo "hello"; die;
+
             $reply_message = new Reply_Message();
             $reply_message->name = $request->name;
             $reply_message->userId = $request->userId;
             $reply_message->email = $request->email;
-            $reply_message->message = $request->message;
+            $reply_message->message = $request->reply_message;
+
             $reply_message->save();
 
             return response()->json([

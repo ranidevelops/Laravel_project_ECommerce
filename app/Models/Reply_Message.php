@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Reply_Message extends Model
 {
     use HasFactory;
+    protected $table = 'reply_message';
 }
