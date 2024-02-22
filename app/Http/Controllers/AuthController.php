@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth; 
 use App\Models\User;
+use App\Models\Order;
 
 use Illuminate\Support\Facades\Validator;
 
@@ -72,13 +73,16 @@ class AuthController extends Controller
         return redirect()->route('account.login')->with('error', 'Invalid email or password.');
     }
     public function dashboard(){
-        return view('front.account.profile');
+        $user = Auth::user();
+
+        // echo($user_address);die;
+        $orders = $user->orders;
+
+        $data['user'] = $user;
+
+        return view('front.account.profile',$data);
     }
 
-    public function profile(){
-        echo"hello";
-        
-    }
     public function logout(){
         Auth::logout();
         return redirect()->route('account.login')->with('success','You successfully logged out!');

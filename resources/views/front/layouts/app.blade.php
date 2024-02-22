@@ -68,10 +68,10 @@
 				</a>
 			</div>
 			<div class="col-lg-6 col-6 text-left  d-flex justify-content-end align-items-center">
-				<a href="account.php" class="nav-link text-dark">My Account</a>
+				<a href="{{route('account.profile')}}" class="nav-link text-dark">My Account</a>
 				<form action="">					
 					<div class="input-group">
-						<input type="text" placeholder="Search For Products" class="form-control" aria-label="Amount (to the nearest dollar)">
+						<input type="text" value="{{Request::get('keyword')}}" name="keyword" class="form-control float-right" placeholder="Search">
 						<span class="input-group-text">
 							<i class="fa fa-search"></i>
 					  	</span>
@@ -151,7 +151,7 @@
 				<div class="footer-card">
 					<h3>Important Links</h3>
 					<ul>
-						<li><a href="about-us.php" title="About">About</a></li>
+						<li><a href="{{route('front.about')}}" title="About">About</a></li>
 						<li><a href="{{route('front.contact')}}" title="Contact Us">Contact Us</a></li>						
 						<li><a href="#" title="Privacy">Privacy</a></li>
 						<li><a href="#" title="Privacy">Terms & Conditions</a></li>
@@ -164,8 +164,8 @@
 				<div class="footer-card">
 					<h3>My Account</h3>
 					<ul>
-						<li><a href="#" title="Sell">Login</a></li>
-						<li><a href="#" title="Advertise">Register</a></li>
+						<li><a href="{{route('account.login')}}" title="Sell">Login</a></li>
+						<li><a href="{{route('account.register')}}" title="Advertise">Register</a></li>
 						<li><a href="#" title="Contact Us">My Orders</a></li>						
 					</ul>
 				</div>

@@ -43,6 +43,7 @@ Route::get('/cart',[CartController::class,'cart'])->name('front.cart');
 Route::get('/checkout',[CartController::class,'checkout'])->name('front.checkout');
 Route::post('/process-checkout',[CartController::class,'processCheckout'])->name('front.processCheckout');
 Route::get('/thanks/{orderId}',[CartController::class,'thankyou'])->name('front.thankyou');
+Route::get('/about',[ContactController::class,'about'])->name('front.about');
 Route::get('/contact',[ContactController::class,'contact'])->name('front.contact');
 Route::post('/process-contact', [ContactController::class, 'processContact'])->name('contact.process');
 
@@ -111,6 +112,19 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('/sub-categories/{subCategory}/edit',[SubCategoryController::class,'edit'])->name('sub-categories.edit');
         Route::put('/sub-categories/{subcategory}/edit',[SubCategoryController::class,'update'])->name('sub-categories.update');
         Route::delete('/sub-categories/{subcategory}',[CategoryController::class,'destroy'])->name('sub-categories.delete');
+        // inquiry Routes
+        Route::get('/inquiry',[ContactController::class,'index'])->name('inquiry.index');
+        Route::get('/inquiry/{inquiry}/reply',[ContactController::class,'reply'])->name('inquiry.reply');
+        Route::post('/reply/{id}',[ContactController::class,'store'])->name('reply.store');
+
+        Route::get('/inquiry/{inquiry}/edit',[ContactController::class,'edit'])->name('inquiry.edit');
+        Route::put('/inquiry/{inquiry}/edit',[ContactController::class,'update'])->name('inquiry.update');
+        Route::delete('/inquiry/{inquiry}',[ContactController::class,'destroy'])->name('inquiry.delete');
+
+        
+
+
+
 
 
         //temp-images.create

@@ -12,9 +12,9 @@
 						</div>
 					</div>
 					<!-- /.container-fluid -->
-				</section>
+</section>
 				<!-- Main content -->
-				<section class="content">
+<section class="content">
 					<!-- Default box -->
 					<div class="container-fluid">
 					<form action="" method="post" id="createBrandForm" name="createBrandForm">
@@ -54,7 +54,7 @@
 						</form>
 					</div>
 					<!-- /.card -->
-				</section>
+</section>
 				<!-- /.content -->
 				
 				

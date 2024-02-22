@@ -12,7 +12,7 @@ use App\Models\Brand;
 class BrandsController extends Controller
 {   
     public function index(Request $request){
-        $brands = Brand::latest('id');
+        $brands = Brand::oldest('id');
         if(!empty($request->get('keyword'))){
             $brands = $brands->where('name', 'like', '%' . $request->get('keyword') . '%');
         }
