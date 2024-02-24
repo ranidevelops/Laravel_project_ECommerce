@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\BrandsController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
+use App\Http\Controllers\admin\ShippingController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
@@ -144,11 +145,24 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('/products',[ProductController::class,'index'])->name('products.index');
         Route::get('/products/{products}/edit',[productController::class,'edit'])->name('products.edit');
 
-
-
         Route::get('/products-subcategories',[ProductSubCategoryController::class,'index'])->name('products-subcategories.index');
 
+        // Shipping Routes
+        Route::get('/shipping/create',[ShippingController::class,'create'])->name('shipping.create');
+        Route::post('/shipping',[ShippingController::class,'store'])->name('shipping.store');
+        Route::get('/shipping/{id}',[ShippingController::class,'edit'])->name('shipping.edit');
+        Route::put('/shipping/{id}',[ShippingController::class,'update'])->name('shipping.update');
+        Route::delete('/shipping/{id}',[ShippingController::class,'destroy'])->name('shipping.delete');
 
+
+
+
+
+
+
+
+
+        
 
 
         

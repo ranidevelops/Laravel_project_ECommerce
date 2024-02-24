@@ -141,29 +141,40 @@ class CartController extends Controller
     }
     public function checkout()
     {
-    if (Cart::count() == 0) {
-        return redirect()->route('front.cart');
-    }
-
-    if (Auth::check()) {
-        // User is already logged in, redirect to intended URL if set
-        if (session()->has('url.intended')) {
-            $intendedUrl = session()->get('url.intended');
-            session()->forget('url.intended');
-            return redirect($intendedUrl);
-        } else {
-            $countries = Country::orderBy('name','ASC')->get();
-            // If no intended URL is set, proceed to checkout
-            return view('front.layouts.checkout',[
-                'countries' => $countries
-            ]);
+        // Check if the cart is empty
+        if (Cart::count() == 0) {
+            return redirect()->route('front.cart');
         }
-    } else {
-        // User is not logged in, redirect to login page
-        session(['url.intended' => url()->current()]);
-        return redirect()->route('account.login');
-    }
     
+        // Initialize variables
+        $customerAddress = null;
+        $countries = Country::orderBy('name','ASC')->get();
+    
+        // Check if the user is logged in
+        if (Auth::check()) {
+            // User is already logged in
+            // Redirect to intended URL if set
+            if (session()->has('url.intended')) {
+                $intendedUrl = session()->get('url.intended');
+                session()->forget('url.intended');
+                return redirect($intendedUrl);
+            } else {
+                // Retrieve customer address
+                $customerAddress = CustomerAddress::where('user_id',Auth::user()->id)->first();
+            }
+        } else {
+            // User is not logged in
+            // Set intended URL and redirect to login page
+            session(['url.intended' => url()->current()]);
+            return redirect()->route('account.login');
+        }
+    
+        // Load the checkout view with necessary data
+        // echo($customerAddress);die;
+        return view('front.layouts.checkout', [
+            'countries' => $countries,
+            'customerAddress' => $customerAddress
+        ]);
     }
     public function processCheckout(Request $request){
         $validator = Validator::make($request->all(),[
@@ -229,7 +240,7 @@ class CartController extends Controller
             $order->state = $request->state;
             $order->city = $request->city;
             $order->zip = $request->zip;
-            $order->notes = $request->notes;
+            $order->notes = $request->order_notes;
             $order->country_id = $request->country;
             $order->save();
 

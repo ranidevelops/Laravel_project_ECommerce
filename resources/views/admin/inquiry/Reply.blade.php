@@ -11,43 +11,42 @@
 							</div>
 						</div>
 					</div>
-					<!-- /.container-fluid -->
 </section>
-				<!-- Main content -->
+<!-- Main content -->
 <section class="content">
-					<!-- Default box -->
-					<div class="container-fluid">
-					<form action="" method="post" id="AddReplyForm" name="AddReplyForm">
-						<div class="card">
-							<div class="card-body">								
-								<div class="row">
-									<div class="col-md-6">
-										<div class="mb-3">
-											<label for="name">Reply To {{$contact->name}}</label>
-                                            <input type="hidden" name="name" value={{$contact->name}}>
-                                            <input type="hidden" name="userId" value={{$contact->id}}>
-											<textarea name="reply_message" id="reply_message" class="form-control" placeholder="Add your response"></textarea>
-											<p></p>	
-										</div>
-                                        <div class="col-md-6">
-										<div class="mb-3">
-											<label for="email">Email</label>
-											<input type="email" readonly name="email" id="email" class="form-control" placeholder="Email" value={{$contact->email}}>
-											<p></p>	
-										</div>
-									</div>
-									</div>
-																	
-								</div>
-							</div>							
-						</div>
-						<div class="pb-5 pt-3">
-							<button type="submit" class="btn btn-primary">Create</button>
-							<a href="brands.html" class="btn btn-outline-dark ml-3">Cancel</a>
-						</div>
-						</form>
-					</div>
-					
+	<!-- Default box -->
+    <div class="container-fluid">
+    <form action="" method="post" id="AddReplyForm" name="AddReplyForm">
+        <div class="card">
+            <div class="card-body">								
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="name">Reply To {{$contact->name}}</label>
+                            <input type="hidden" name="name" value={{$contact->name}}>
+                            <input type="hidden" name="userId" value={{$contact->id}}>
+                            <textarea name="reply_message" id="reply_message" class="form-control" placeholder="Add your response"></textarea>
+                            <p></p>	
+                        </div>
+                        <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="email">Email</label>
+                            <input type="email" readonly name="email" id="email" class="form-control" placeholder="Email" value={{$contact->email}}>
+                            <p></p>	
+                        </div>
+                    </div>
+                    </div>
+                                                    
+                </div>
+            </div>							
+        </div>
+        <div class="pb-5 pt-3">
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a href="brands.html" class="btn btn-outline-dark ml-3">Cancel</a>
+        </div>
+        </form>
+    </div>
+    
 </section>
 
 @endsection
