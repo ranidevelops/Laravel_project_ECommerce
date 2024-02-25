@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\CustomerAddress;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\ShippingCharge;
 
 use App\Models\Country; 
 
@@ -149,6 +150,8 @@ class CartController extends Controller
         // Initialize variables
         $customerAddress = null;
         $countries = Country::orderBy('name','ASC')->get();
+
+       
     
         // Check if the user is logged in
         if (Auth::check()) {
@@ -161,6 +164,17 @@ class CartController extends Controller
             } else {
                 // Retrieve customer address
                 $customerAddress = CustomerAddress::where('user_id',Auth::user()->id)->first();
+
+                $userCountry = $customerAddress->country_id;
+                $shippingInfo = ShippingCharge::where('country_id',$userCountry)->first();
+
+                $totalQty = 0;
+                $totalShippingCharge = 0;
+                foreach(Cart::content() as $item){
+                    $totalQty += $item->qty;
+                }
+
+                $totalShippingCharge = $totalQty*$shippingInfo->amount;
             }
         } else {
             // User is not logged in
@@ -173,7 +187,8 @@ class CartController extends Controller
         // echo($customerAddress);die;
         return view('front.layouts.checkout', [
             'countries' => $countries,
-            'customerAddress' => $customerAddress
+            'customerAddress' => $customerAddress,
+            'totalShippingCharge' => $totalShippingCharge
         ]);
     }
     public function processCheckout(Request $request){
