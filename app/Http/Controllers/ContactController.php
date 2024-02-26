@@ -93,7 +93,7 @@ class ContactController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
-            'email' => 'required|email|unique:users',
+            'email' => 'required',
             'phone' => 'required|min:10|numeric',
             'message' => 'required',
         ]);

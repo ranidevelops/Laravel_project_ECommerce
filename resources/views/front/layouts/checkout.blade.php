@@ -57,7 +57,7 @@
 
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <textarea name="address" id="address" cols="30" rows="3" placeholder="Address" class="form-control" >{{ (!empty($customerAddress)) ? $customerAddress->first_name : '' }}</textarea>
+                                        <textarea name="address" id="address" cols="30" rows="3" placeholder="Address" class="form-control" >{{ (!empty($customerAddress)) ? $customerAddress->address : '' }}</textarea>
                                         <p></p>
                                     </div>            
                                 </div>
@@ -129,7 +129,7 @@
                             </div>
                             <div class="d-flex justify-content-between mt-2">
                                 <div class="h6"><strong>Shipping</strong></div>
-                                <div class="h6"><strong>${{ number_format($totalShippingCharge,2) }}</strong></div>
+                                <div class="h6"><strong>${{ $totalShippingCharge }}</strong></div>
                             </div>
                             <div class="d-flex justify-content-between mt-2 summery-end">
                                 <div class="h5"><strong>Total</strong></div>

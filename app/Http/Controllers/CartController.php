@@ -142,54 +142,51 @@ class CartController extends Controller
     }
     public function checkout()
     {
-        // Check if the cart is empty
-        if (Cart::count() == 0) {
-            return redirect()->route('front.cart');
-        }
-    
-        // Initialize variables
-        $customerAddress = null;
-        $countries = Country::orderBy('name','ASC')->get();
+    // Check if the cart is empty
+    if (Cart::count() == 0) {
+        return redirect()->route('front.cart');
+    }
 
-       
-    
-        // Check if the user is logged in
-        if (Auth::check()) {
-            // User is already logged in
-            // Redirect to intended URL if set
-            if (session()->has('url.intended')) {
-                $intendedUrl = session()->get('url.intended');
-                session()->forget('url.intended');
-                return redirect($intendedUrl);
-            } else {
-                // Retrieve customer address
-                $customerAddress = CustomerAddress::where('user_id',Auth::user()->id)->first();
+    // Initialize variables
+    $customerAddress = null;
+    $countries = Country::orderBy('name','ASC')->get();
+    $totalShippingCharge = 0; // Initialize to zero
 
-                $userCountry = $customerAddress->country_id;
-                $shippingInfo = ShippingCharge::where('country_id',$userCountry)->first();
-
-                $totalQty = 0;
-                $totalShippingCharge = 0;
-                foreach(Cart::content() as $item){
-                    $totalQty += $item->qty;
-                }
-
-                $totalShippingCharge = $totalQty*$shippingInfo->amount;
-            }
+    // Check if the user is logged in
+    if (Auth::check()) {
+        // User is already logged in
+        // Redirect to intended URL if set
+        if (session()->has('url.intended')) {
+            $intendedUrl = session()->get('url.intended');
+            session()->forget('url.intended');
+            return redirect($intendedUrl);
         } else {
-            // User is not logged in
-            // Set intended URL and redirect to login page
-            session(['url.intended' => url()->current()]);
-            return redirect()->route('account.login');
+            // Retrieve customer address
+            $customerAddress = CustomerAddress::where('user_id', Auth::user()->id)->first();
+
+            if ($customerAddress) {
+                $userCountry = $customerAddress->country_id;
+                $shippingInfo = ShippingCharge::where('country_id', $userCountry)->first();
+
+                if ($shippingInfo) {
+                    $totalQty = Cart::count();
+                    $totalShippingCharge = $totalQty * $shippingInfo->amount;
+                }
+            }
         }
-    
-        // Load the checkout view with necessary data
-        // echo($customerAddress);die;
-        return view('front.layouts.checkout', [
-            'countries' => $countries,
-            'customerAddress' => $customerAddress,
-            'totalShippingCharge' => $totalShippingCharge
-        ]);
+    } else {
+        // User is not logged in
+        // Set intended URL and redirect to login page
+        session(['url.intended' => url()->current()]);
+        return redirect()->route('account.login');
+    }
+
+    // Load the checkout view with necessary data
+    return view('front.layouts.checkout', [
+        'countries' => $countries,
+        'customerAddress' => $customerAddress,
+        'totalShippingCharge' => $totalShippingCharge
+    ]);
     }
     public function processCheckout(Request $request){
         $validator = Validator::make($request->all(),[
