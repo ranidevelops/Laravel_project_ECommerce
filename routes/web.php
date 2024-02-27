@@ -47,6 +47,8 @@ Route::get('/thanks/{orderId}',[CartController::class,'thankyou'])->name('front.
 Route::get('/about',[ContactController::class,'about'])->name('front.about');
 Route::get('/contact',[ContactController::class,'contact'])->name('front.contact');
 Route::post('/process-contact', [ContactController::class, 'processContact'])->name('contact.process');
+Route::post('/get-order-summary',[CartController::class,'getOrderSummary'])->name('front.getOrderSummary');
+
 
 
 
@@ -153,6 +155,7 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('/shipping/{id}',[ShippingController::class,'edit'])->name('shipping.edit');
         Route::put('/shipping/{id}',[ShippingController::class,'update'])->name('shipping.update');
         Route::delete('/shipping/{id}',[ShippingController::class,'destroy'])->name('shipping.delete');
+
 
 
 

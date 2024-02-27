@@ -150,7 +150,8 @@ class CartController extends Controller
     // Initialize variables
     $customerAddress = null;
     $countries = Country::orderBy('name','ASC')->get();
-    $totalShippingCharge = 0; // Initialize to zero
+    $totalShippingCharge = 0; 
+    $grandTotal = 0;
 
     // Check if the user is logged in
     if (Auth::check()) {
@@ -171,8 +172,10 @@ class CartController extends Controller
                 if ($shippingInfo) {
                     $totalQty = Cart::count();
                     $totalShippingCharge = $totalQty * $shippingInfo->amount;
+                    $grandTotal = Cart::subtotal(2,'.','') + $totalShippingCharge;
                 }
             }
+            // dd($totalShippingCharge);
         }
     } else {
         // User is not logged in
@@ -185,9 +188,64 @@ class CartController extends Controller
     return view('front.layouts.checkout', [
         'countries' => $countries,
         'customerAddress' => $customerAddress,
-        'totalShippingCharge' => $totalShippingCharge
+        'totalShippingCharge' => $totalShippingCharge,
+        'grandTotal' => $grandTotal
     ]);
     }
+
+    public function getOrderSummary(Request $request){
+        if($request->country_id > 0){
+            $subTotal = Cart::subtotal(2,'.','');
+            $shippingInfo = ShippingCharge::where('country_id',$request->country_id)->first();
+
+            $totalQty = 0;
+            $totalShippingCharge = 0;
+            $grandTotal = 0;
+             foreach(Cart::content() as $item){
+                $totalQty += $item->qty;
+             }
+
+            if($shippingInfo != null){
+                $shippingCharge = $totalQty * $shippingInfo->amount;
+                $grandTotal = $subTotal + $shippingCharge;
+
+                return response()->json([
+                    'status' => true,
+                    'grandTotal' => $grandTotal,
+                    'shippingCharge' => $shippingCharge,
+
+                ]);
+            }else{
+                $shippingInfo = ShippingCharge::where('country_id','rest_of_world')->first();
+
+                $shippingCharge = $totalQty * $shippingInfo->amount;
+                $grandTotal = $subTotal + $shippingCharge;
+
+                return response()->json([
+                    'status' => true,
+                    'grandTotal' => number_format($grandTotal,2),
+                    'shippingCharge' => number_format($shippingCharge,2),
+
+                ]);
+
+            }
+
+
+
+
+        }else{
+            return response()->json([
+                'status' => true,
+                'grandTotal' => number_format($grandTotal,2),
+                'shippingCharge' => number_format(0,2),
+
+            ]);
+
+        }
+
+
+    }
+
     public function processCheckout(Request $request){
         $validator = Validator::make($request->all(),[
             'first_name' => 'required',
